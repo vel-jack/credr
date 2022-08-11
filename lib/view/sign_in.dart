@@ -1,5 +1,7 @@
+import 'package:credr/utils/constants.dart';
+import 'package:credr/widgets/custom_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:user_auth/utils/constants.dart';
+import 'package:flutter/services.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -11,8 +13,11 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky,
+        overlays: []);
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         width: size.width,
         height: size.height,
@@ -28,12 +33,24 @@ class _SignInState extends State<SignIn> {
         ),
         child: Stack(
           children: [
-            Center(
-                child:
-                    Opacity(opacity: 0.2, child: Image.asset('assets/bg.png'))),
+            ShaderMask(
+                shaderCallback: (rect) {
+                  return const LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.black54,
+                        Colors.black54,
+                        Colors.transparent,
+                        Colors.transparent,
+                      ]).createShader(
+                      Rect.fromLTRB(0, 0, rect.width, rect.height));
+                },
+                blendMode: BlendMode.dstIn,
+                child: Center(child: Image.asset('assets/bg.png'))),
             Positioned(
-              right: 50,
-              bottom: 200,
+              right: 60,
+              top: -60,
               child: Container(
                 width: size.width + 300,
                 height: size.width + 300,
@@ -42,6 +59,8 @@ class _SignInState extends State<SignIn> {
                   gradient: LinearGradient(
                     colors: [
                       blueLight,
+                      blueLight,
+                      blueDark,
                       blueDark,
                     ],
                     begin: Alignment.topCenter,
@@ -50,152 +69,101 @@ class _SignInState extends State<SignIn> {
                 ),
               ),
             ),
-            SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 100,
-                      ),
-                      const Text(
-                        'Sign In',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 40,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Text(
-                        'Sign in with your username or email',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 100),
-                        child: Container(
-                          width: size.width - 100,
-                          decoration: BoxDecoration(
-                            color: const Color(0xddffffff),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Form(
-                              child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: TextFormField(
-                                  decoration: const InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: 'Username or Email',
-                                    hintStyle: TextStyle(
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const Divider(),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: TextFormField(
-                                  decoration: const InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: 'Password',
-                                    hintStyle: TextStyle(
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )),
-                        ),
-                      ),
-                      Container(
-                        width: 180,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            SizedBox(
+              height: size.height,
+              child: CustomScrollView(
+                physics: const ClampingScrollPhysics(),
+                slivers: [
+                  SliverFillRemaining(
+                    hasScrollBody: false,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Image.asset(
-                              'assets/google.png',
-                              width: 30,
+                            const SizedBox(
+                              height: 70,
                             ),
-                            const Text(
-                              'Google  ',
-                              style: TextStyle(
-                                  // color: Colors.white,
-                                  ),
+                            const HeaderText('Sign In',
+                                'Sign in with your username or email'),
+                            const SizedBox(
+                              height: 30,
                             ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Column(
-                        children: [
-                          const Text(
-                            'Create Account',
-                            style: TextStyle(
-                              color: greyText,
-                              fontWeight: FontWeight.bold,
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  right: 25,
+                                  left: 70,
+                                  top: 20,
+                                ),
+                                child: Form(
+                                    child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: const [
+                                    CustomTextField(
+                                      'Username or Email',
+                                      corner: RoundedCorner.top,
+                                    ),
+                                    WhiteDivider(),
+                                    CustomTextField(
+                                      'Password',
+                                    ),
+                                    WhiteDivider(),
+                                    CustomTextField(
+                                      'Confirm Password',
+                                      corner: RoundedCorner.bottom,
+                                    ),
+                                    SizedBox(
+                                      height: 40,
+                                    ),
+                                    RoundedButton(text: 'Sign In'),
+                                  ],
+                                )),
+                              ),
                             ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(top: 5),
-                            height: 4,
-                            width: 100,
-                            color: blueDark,
-                          ),
-                        ],
-                      ),
-                      const Text(
-                        'Social Login can save your valuable time',
-                        style: TextStyle(
-                          color: greyText,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              margin: const EdgeInsets.only(top: 5),
-                              height: 4,
-                              width: 100,
-                              color: blueDark,
+                            const SizedBox(
+                              height: 10,
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Image.asset(
-                              'assets/hand.png',
-                              height: 40,
+                            Container(
+                              alignment: Alignment.topRight,
+                              child: UnderlinedTextButton(
+                                'Create Account',
+                                onTap: () {},
+                              ),
                             ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              margin: const EdgeInsets.only(top: 5),
-                              height: 4,
-                              width: 100,
-                              color: blueDark,
+                            const SizedBox(height: 80),
+                            const SizedBox(
+                              width: double.infinity,
+                              child: GreyText(
+                                'Social Login can save your valuable time',
+                              ),
                             ),
-                          ),
-                        ],
-                      )
-                    ]),
+                            const HandDivider(),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                RoundedButton(
+                                  text: 'Google   ',
+                                  image: 'assets/google.png',
+                                  textColor: Colors.black,
+                                  backgroundColor: Colors.white,
+                                  onTap: () {},
+                                ),
+                                RoundedButton(
+                                  text: 'Facebook',
+                                  image: 'assets/fb.png',
+                                  backgroundColor: const Color(0xff364b9a),
+                                  onTap: () {},
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 24,
+                            )
+                          ]),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

@@ -3,7 +3,7 @@
 user authentication with username or email.
 
 - [ ]  UI
-    - [ ]  Sign in page
+    - [x]  Sign in page
     - [ ]  Sign up page
     - [ ]  Simple Home page 
 - [ ]  add firebase

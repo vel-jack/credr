@@ -1,0 +1,106 @@
+{
+  "project_info": {
+    "project_number": "497359992196",
+    "firebase_url": "https://yeah-dude-6b7b9.firebaseio.com",
+    "project_id": "yeah-dude-6b7b9",
+    "storage_bucket": "yeah-dude-6b7b9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:497359992196:android:599ad1f29e590bcb8f19d1",
+        "android_client_info": {
+          "package_name": "com.vel.auth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "497359992196-au3agkjkvpf2ojcrefu9a0e4047d8cq1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3wLitRKQc60AbZpbIVczpsaeoD1-SS6U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "497359992196-au3agkjkvpf2ojcrefu9a0e4047d8cq1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:497359992196:android:a4a97417168d75bb8f19d1",
+        "android_client_info": {
+          "package_name": "com.vel.credr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "497359992196-au3agkjkvpf2ojcrefu9a0e4047d8cq1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3wLitRKQc60AbZpbIVczpsaeoD1-SS6U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "497359992196-au3agkjkvpf2ojcrefu9a0e4047d8cq1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:497359992196:android:a7a1f659f10f771c",
+        "android_client_info": {
+          "package_name": "com.vjack.yeahdude"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "497359992196-qh44fu3kg35hs3d5kc3g2uu3hh0ti26e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vjack.yeahdude",
+            "certificate_hash": "2138b87c3d297fbc78ca041964f2d3aa26ae0bd1"
+          }
+        },
+        {
+          "client_id": "497359992196-au3agkjkvpf2ojcrefu9a0e4047d8cq1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3wLitRKQc60AbZpbIVczpsaeoD1-SS6U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "497359992196-au3agkjkvpf2ojcrefu9a0e4047d8cq1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

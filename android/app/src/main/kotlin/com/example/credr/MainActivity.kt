@@ -1,4 +1,4 @@
-package com.example.user_auth
+package com.example.credr
 
 import io.flutter.embedding.android.FlutterActivity
 
