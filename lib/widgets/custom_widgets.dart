@@ -21,11 +21,12 @@ class RoundedButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: image == null ? 180 : 150,
-        height: image == null ? 40 : 35,
+        width: image == null ? 182 : 152,
+        height: image == null ? 42 : 37,
         decoration: BoxDecoration(
           color: backgroundColor,
           borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: blueDark),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -61,8 +62,8 @@ class WhiteDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey.shade400,
-      height: 0.5,
+      color: Colors.grey,
+      height: 0.3,
     );
   }
 }
@@ -76,18 +77,22 @@ class CustomTextField extends StatelessWidget {
     this.controller,
     this.corner,
     this.isPassword = false,
+    this.inputAction,
+    this.validator,
   }) : super(key: key);
   final TextEditingController? controller;
   final RoundedCorner? corner;
   final String hint;
   final bool isPassword;
+  final TextInputAction? inputAction;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: 10,
-        vertical: 5,
+        vertical: 3,
       ),
       decoration: BoxDecoration(
         color: const Color(0xddffffff),
@@ -106,11 +111,19 @@ class CustomTextField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         obscureText: isPassword,
+        textInputAction: inputAction,
+        validator: validator,
+        style: const TextStyle(
+          fontWeight: FontWeight.w500,
+          // fontSize: 14,
+        ),
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: hint,
-          hintStyle: const TextStyle(
-            color: Colors.grey,
+          hintStyle: TextStyle(
+            color: Colors.grey.shade400,
+            fontWeight: FontWeight.w600,
+            fontSize: 14,
           ),
         ),
       ),
@@ -130,20 +143,22 @@ class UnderlinedTextButton extends StatelessWidget {
   final double lineWidth;
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            GreyText(
-              text,
-              fontSize: 17,
+    return Padding(
+      padding: const EdgeInsets.all(8.0).copyWith(right: 18),
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          decoration: const BoxDecoration(
+              border: Border(
+            bottom: BorderSide(
+              color: blueDark, // Text colour here
+              width: 3.0, // Underline width
             ),
-            GreyLine(
-              width: lineWidth,
-            ),
-          ],
+          )),
+          child: GreyText(
+            text,
+            fontSize: 17,
+          ),
         ),
       ),
     );
@@ -168,8 +183,8 @@ class GreyText extends StatelessWidget {
   }
 }
 
-class GreyLine extends StatelessWidget {
-  const GreyLine({
+class BlueLine extends StatelessWidget {
+  const BlueLine({
     Key? key,
     this.width = 120.0,
   }) : super(key: key);
@@ -193,7 +208,7 @@ class HandDivider extends StatelessWidget {
     return Row(
       children: [
         const SizedBox(width: 15),
-        const Expanded(child: GreyLine()),
+        const Expanded(child: BlueLine()),
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Image.asset(
@@ -201,7 +216,7 @@ class HandDivider extends StatelessWidget {
             height: 25,
           ),
         ),
-        const Expanded(child: GreyLine()),
+        const Expanded(child: BlueLine()),
         const SizedBox(width: 15),
       ],
     );
@@ -241,6 +256,81 @@ class HeaderText extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class BackgroundImage extends StatelessWidget {
+  const BackgroundImage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ShaderMask(
+        shaderCallback: (rect) {
+          return const LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Colors.black54,
+                Colors.black54,
+                Colors.transparent,
+                Colors.transparent,
+              ]).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
+        },
+        blendMode: BlendMode.dstIn,
+        child: Center(child: Image.asset('assets/bg.png')));
+  }
+}
+
+class GradientCircle extends StatelessWidget {
+  const GradientCircle({Key? key, required this.size}) : super(key: key);
+  final double size;
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      right: 60,
+      top: -60,
+      child: Container(
+        width: size + 300,
+        height: size + 300,
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+          gradient: LinearGradient(
+            colors: [
+              blueLight,
+              blueLight,
+              blueDark,
+              blueDark,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class LoadingOverlay extends StatelessWidget {
+  const LoadingOverlay({Key? key, required this.size}) : super(key: key);
+  final Size size;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: size.width,
+      height: size.height,
+      color: Colors.black38,
+      child: Center(
+          child: Container(
+        width: 100,
+        height: 100,
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+            color: Colors.white, borderRadius: BorderRadius.circular(10)),
+        child: const CircularProgressIndicator(
+          color: blueDark,
+        ),
+      )),
     );
   }
 }

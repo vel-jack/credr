@@ -1,7 +1,9 @@
 import 'package:credr/utils/constants.dart';
+import 'package:credr/view/sign_up.dart';
 import 'package:credr/widgets/custom_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -11,6 +13,17 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  final formKey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky,
@@ -33,45 +46,13 @@ class _SignInState extends State<SignIn> {
         ),
         child: Stack(
           children: [
-            ShaderMask(
-                shaderCallback: (rect) {
-                  return const LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.black54,
-                        Colors.black54,
-                        Colors.transparent,
-                        Colors.transparent,
-                      ]).createShader(
-                      Rect.fromLTRB(0, 0, rect.width, rect.height));
-                },
-                blendMode: BlendMode.dstIn,
-                child: Center(child: Image.asset('assets/bg.png'))),
-            Positioned(
-              right: 60,
-              top: -60,
-              child: Container(
-                width: size.width + 300,
-                height: size.width + 300,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: LinearGradient(
-                    colors: [
-                      blueLight,
-                      blueLight,
-                      blueDark,
-                      blueDark,
-                    ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
-                ),
-              ),
-            ),
+            const BackgroundImage(),
+            GradientCircle(size: size.width),
             SizedBox(
               height: size.height,
               child: CustomScrollView(
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
                 physics: const ClampingScrollPhysics(),
                 slivers: [
                   SliverFillRemaining(
@@ -97,38 +78,101 @@ class _SignInState extends State<SignIn> {
                                   top: 20,
                                 ),
                                 child: Form(
+                                    key: formKey,
                                     child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
-                                    CustomTextField(
-                                      'Username or Email',
-                                      corner: RoundedCorner.top,
-                                    ),
-                                    WhiteDivider(),
-                                    CustomTextField(
-                                      'Password',
-                                    ),
-                                    WhiteDivider(),
-                                    CustomTextField(
-                                      'Confirm Password',
-                                      corner: RoundedCorner.bottom,
-                                    ),
-                                    SizedBox(
-                                      height: 40,
-                                    ),
-                                    RoundedButton(text: 'Sign In'),
-                                  ],
-                                )),
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        CustomTextField(
+                                          'Username or Email',
+                                          corner: RoundedCorner.top,
+                                          controller: emailController,
+                                          inputAction: TextInputAction.next,
+                                          validator: (res) {
+                                            if (res!.isNotEmpty) {
+                                              if (res.contains('@')) {
+                                                // validating email
+                                                if (regExForEmail
+                                                    .hasMatch(res)) {
+                                                  return null;
+                                                } else {
+                                                  return 'Enter a valid email';
+                                                }
+                                              } else {
+                                                // validating username
+                                                if (res.length < 4) {
+                                                  return 'Username requires minimum 4 characters';
+                                                }
+                                                if (res.length > 15) {
+                                                  return 'Maximum 14 characters only allowed';
+                                                }
+                                                if (regExForUsername
+                                                    .hasMatch(res)) {
+                                                  return null;
+                                                } else {
+                                                  return 'Invalid username';
+                                                }
+                                              }
+                                            } else {
+                                              return 'Username or email is required';
+                                            }
+                                          },
+                                        ),
+                                        const WhiteDivider(),
+                                        CustomTextField(
+                                          'Password',
+                                          controller: passwordController,
+                                          inputAction: TextInputAction.done,
+                                          corner: RoundedCorner.bottom,
+                                          isPassword: true,
+                                          validator: (res) {
+                                            if (res!.isNotEmpty) {
+                                              if (res.length < 8) {
+                                                return 'Minimum 8 characters required';
+                                              }
+                                              return null;
+                                            } else {
+                                              return 'Password is required';
+                                            }
+                                          },
+                                        ),
+                                        const SizedBox(
+                                          height: 40,
+                                        ),
+                                        RoundedButton(
+                                          text: 'Sign In',
+                                          onTap: () {
+                                            FocusManager.instance.primaryFocus!
+                                                .unfocus();
+                                            if (formKey.currentState!
+                                                .validate()) {
+                                              if (emailController.text
+                                                  .contains('@')) {
+                                                authController.signInWithEmail(
+                                                    emailController.text,
+                                                    passwordController.text);
+                                              } else {
+                                                authController
+                                                    .signInWithUsername(
+                                                  emailController.text,
+                                                  passwordController.text,
+                                                );
+                                              }
+                                            }
+                                          },
+                                        ),
+                                      ],
+                                    )),
                               ),
                             ),
-                            const SizedBox(
-                              height: 10,
-                            ),
+                            const SizedBox(height: 10),
                             Container(
                               alignment: Alignment.topRight,
                               child: UnderlinedTextButton(
                                 'Create Account',
-                                onTap: () {},
+                                onTap: () {
+                                  Get.to(() => const SignUp());
+                                },
                               ),
                             ),
                             const SizedBox(height: 80),
@@ -147,7 +191,9 @@ class _SignInState extends State<SignIn> {
                                   image: 'assets/google.png',
                                   textColor: Colors.black,
                                   backgroundColor: Colors.white,
-                                  onTap: () {},
+                                  onTap: () {
+                                    authController.signInWithGoogle();
+                                  },
                                 ),
                                 RoundedButton(
                                   text: 'Facebook',
@@ -157,15 +203,18 @@ class _SignInState extends State<SignIn> {
                                 )
                               ],
                             ),
-                            const SizedBox(
-                              height: 24,
-                            )
+                            const SizedBox(height: 24),
                           ]),
                     ),
                   ),
                 ],
               ),
             ),
+            Obx(() {
+              return authController.isLoading.value
+                  ? LoadingOverlay(size: size)
+                  : const SizedBox();
+            })
           ],
         ),
       ),

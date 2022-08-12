@@ -8,35 +8,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:497359992196:android:599ad1f29e590bcb8f19d1",
-        "android_client_info": {
-          "package_name": "com.vel.auth"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "497359992196-au3agkjkvpf2ojcrefu9a0e4047d8cq1.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyC3wLitRKQc60AbZpbIVczpsaeoD1-SS6U"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "497359992196-au3agkjkvpf2ojcrefu9a0e4047d8cq1.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:497359992196:android:a4a97417168d75bb8f19d1",
         "android_client_info": {
           "package_name": "com.vel.credr"

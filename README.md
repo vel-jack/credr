@@ -2,11 +2,11 @@
 
 user authentication with username or email.
 
-- [ ]  UI
+- [x]  UI
     - [x]  Sign in page
-    - [ ]  Sign up page
-    - [ ]  Simple Home page 
-- [ ]  add firebase
-- [ ]  check whether email/username is valid
-- [ ]  check whether email/username exists (sign up)
-- [ ]  check whether already signed up with email or google
+    - [x]  Sign up page
+    - [x]  Simple Home page 
+- [x]  add firebase
+- [x]  check whether email/username is valid
+- [x]  check whether email/username exists (sign up)
+- [x]  check whether already signed up with email or google
