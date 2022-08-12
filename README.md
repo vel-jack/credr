@@ -1,6 +1,12 @@
 # user_auth
 
-user authentication with username or email.
+User authentication with username or email. 
+
+Download APK files : https://github.com/vel-jack/credr/releases/tag/android
+
+Sample Screenshots:
+
+<img src="https://github.com/vel-jack/credr/blob/master/screenshots/sign_in.jpg?raw=true" width="200"> <img src="https://github.com/vel-jack/credr/blob/master/screenshots/sign_in.jpg?raw=true" width="200"> <img src="https://github.com/vel-jack/credr/blob/master/screenshots/sign_in.jpg?raw=true" width="200">
 
 - [x]  UI
     - [x]  Sign in page
