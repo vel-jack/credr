@@ -2,8 +2,9 @@
 
 User authentication with username or email. 
 
-Sample Screenshots:
+Download APK files : https://github.com/vel-jack/credr/releases/tag/android
 
+Sample Screenshots:
 
 <img src="https://github.com/vel-jack/credr/blob/master/screenshots/sign_in.jpg?raw=true" width="200"> <img src="https://github.com/vel-jack/credr/blob/master/screenshots/sign_in.jpg?raw=true" width="200"> <img src="https://github.com/vel-jack/credr/blob/master/screenshots/sign_in.jpg?raw=true" width="200">
 
