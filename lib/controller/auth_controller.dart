@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:credr/utils/constants.dart';
 import 'package:credr/view/home.dart';
 import 'package:credr/view/sign_in.dart';
@@ -95,6 +93,7 @@ class AuthController extends GetxController {
       isLoading.value = false;
     } catch (e) {
       isLoading.value = false;
+
       showMessage('Sign in error');
     }
   }
@@ -126,7 +125,7 @@ class AuthController extends GetxController {
       isLoading.value = false;
     } catch (e) {
       showMessage('Sign in error');
-      log('$e');
+
       isLoading.value = false;
     } finally {
       isLoading.value = false;

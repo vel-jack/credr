@@ -101,7 +101,7 @@ class _SignInState extends State<SignIn> {
                                               } else {
                                                 // validating username
                                                 if (res.length < 4) {
-                                                  return 'Username requires minimum 4 characters';
+                                                  return 'Minimum 4 characters required';
                                                 }
                                                 if (res.length > 15) {
                                                   return 'Maximum 14 characters only allowed';
